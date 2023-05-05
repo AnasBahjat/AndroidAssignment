@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Assignment1</string>
+<string-array name="branchesSpn">
+    <item>SCI</item>
+    <item>LIT</item>
+</string-array>
+</resources>
