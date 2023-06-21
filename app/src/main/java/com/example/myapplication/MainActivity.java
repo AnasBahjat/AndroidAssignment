@@ -1,66 +1,40 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView imgView1;
     private TextView txtView1;
     private TextView chooseTheBranch;
-    private TextView programTxt;
-    private TextView subjectText;
     private TextView gradeTxt;
     private EditText nameEditTxt;
-    private EditText IDeditTxt;
+    private EditText password;
     private Button addBtn;
     private Spinner branchSpn ;
-    private Spinner subjectSpn;
     private Spinner gradeSpn;
-    private String text ;
-    private String textSCI;
-    private String textLET;
-    private String studentName;
-    private String studentID;
-    private String studentGrade;
-    private String courseName;
-    ArrayList<Student> students=new ArrayList<>();
-    String []branches={"Scientific ","Literary "};
-    String []letSubjects={"Math","History","Geography","English Language","Arabic Language","Technology","Religion"};
-    String []sciSubjects={"Math 1","Math 2","Physics","Chemistry","Biology","Arabic Language","English Language","Religion"};
-    String [] firstGrade={"Math","Arabic language","English language","Religion","First grade","Arts","Science"};
-    String [] secondGrade={"Math","Arabic language","English language","Religion","Second grade","Arts","Science"};
-    String [] therdGrade={"Math","Arabic language","English language","Religion","Third grade","Arts","Science"};
-    String [] fourthGrade={"Math","Arabic language","English language","Religion","Fourth grade","Arts","Science"};
-    String [] fifthGrade={"Math","Arabic language","English language","Religion","Fifth grade","Arts","Science","History","Geography"};
-    String [] sixthGrade={"Math","Arabic language","English language","Religion","Sixth grade","Arts","Science","History","Geography"};
-    String [] seventhGrade={"Math","Arabic language","English language","Religion","Seventh grade","Arts","Science","History","Geography"};
-    String [] eighthGrade={"Math","Arabic language","English language","Religion","eighth grade","Arts","Science","History","Geography"};
-    String [] ninthGrade={"Math","Arabic language","English language","Religion","ninth grade","Arts","Science","History","Geography"};
-    String [] tenthGrade={"Math","Arabic language","English language","Religion","tenth grade","Arts","Physics","Chemistry","Biology","History","Geography"};
-    String []gradesList={"1","2","3","4","5","6","7","8","9","10","11","12"};
 
+    String []branches={"Scientific ","Literary "};
+    String []gradesList={"1","2","3","4","5","6","7","8","9","10","11","12"};
+    private static String grade;
+    private static String branch;
     @SuppressLint({"MissingSuperCall", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        imgView1=findViewById(R.id.imgView1);
         chooseTheBranch=findViewById(R.id.chooseTheBranch);
         chooseTheBranch.setTextSize(18);
 
@@ -68,20 +42,16 @@ public class MainActivity extends AppCompatActivity {
         txtView1.setTextSize(28);
 
 
-       // programTxt.setTextColor();
         gradeTxt=findViewById(R.id.gradeTxt);
         gradeTxt.setTextSize(18);
 
-        nameEditTxt=findViewById(R.id.nameEditTxt);
-        IDeditTxt=findViewById(R.id.IDeditTxt);
+        nameEditTxt=findViewById(R.id.idEditTxt);
+        password=findViewById(R.id.passwordEditTxt);
 
 
-        subjectText=findViewById(R.id.subjectText);
-        subjectText.setTextSize(18);
         addBtn=findViewById(R.id.addBtn);
         branchSpn=findViewById(R.id.branchSpn);
 
-        subjectSpn=findViewById(R.id.subjectSpn);
 
         gradeSpn=findViewById(R.id.gradeSpn);
         ArrayAdapter<String> gradeAdapter=new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item,gradesList);
@@ -90,145 +60,37 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-        studentName=nameEditTxt.getText().toString();
-        studentID=IDeditTxt.getText().toString();
-        gradeSpn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String grade=adapterView.getItemAtPosition(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-
-
-        gradeSpn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                studentGrade=adapterView.getItemAtPosition(i).toString();
-                ArrayAdapter<String> adpt;
-                if(studentGrade.equals("11") || studentGrade.equals("12")){
-                    branchSpn.setVisibility(View.VISIBLE);
-                    chooseTheBranch.setVisibility(View.VISIBLE);
-                }
-                else if(studentGrade.equals("1")){
-                    adpt=new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item,firstGrade);
-                    subjectSpn.setAdapter(adpt);
-                    branchSpn.setVisibility(View.INVISIBLE);
-                    chooseTheBranch.setVisibility(View.INVISIBLE);
-                }
-                else if(studentGrade.equals("2")){
-                    adpt=new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item,secondGrade);
-                    subjectSpn.setAdapter(adpt);
-                    branchSpn.setVisibility(View.INVISIBLE);
-                    chooseTheBranch.setVisibility(View.INVISIBLE);
-                }
-                else if(studentGrade.equals("3")){
-                    adpt=new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item,therdGrade);
-                    subjectSpn.setAdapter(adpt);
-                    branchSpn.setVisibility(View.INVISIBLE);
-                    chooseTheBranch.setVisibility(View.INVISIBLE);
-                }
-                else if(studentGrade.equals("4")){
-                    adpt=new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item,fourthGrade);
-                    subjectSpn.setAdapter(adpt);
-                    branchSpn.setVisibility(View.INVISIBLE);
-                    chooseTheBranch.setVisibility(View.INVISIBLE);
-                }
-                else if(studentGrade.equals("5")){
-                    adpt=new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item,fifthGrade);
-                    subjectSpn.setAdapter(adpt);
-                    branchSpn.setVisibility(View.INVISIBLE);
-                    chooseTheBranch.setVisibility(View.INVISIBLE);
-                }
-                else if(studentGrade.equals("6")){
-                    adpt=new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item,sixthGrade);
-                    subjectSpn.setAdapter(adpt);
-                    branchSpn.setVisibility(View.INVISIBLE);
-                    chooseTheBranch.setVisibility(View.INVISIBLE);
-                }
-                else if(studentGrade.equals("7")){
-                    adpt=new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item,seventhGrade);
-                    subjectSpn.setAdapter(adpt);
-                    branchSpn.setVisibility(View.INVISIBLE);
-                    chooseTheBranch.setVisibility(View.INVISIBLE);
-                }
-                else if(studentGrade.equals("8")){
-                    adpt=new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item,eighthGrade);
-                    subjectSpn.setAdapter(adpt);
-                    branchSpn.setVisibility(View.INVISIBLE);
-                    chooseTheBranch.setVisibility(View.INVISIBLE);
-                }
-                else if(studentGrade.equals("9")){
-                    adpt=new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item,ninthGrade);
-                    subjectSpn.setAdapter(adpt);
-                    branchSpn.setVisibility(View.INVISIBLE);
-                    chooseTheBranch.setVisibility(View.INVISIBLE);
-                }
-                else if(studentGrade.equals("10")){
-                    adpt=new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item,tenthGrade);
-                    subjectSpn.setAdapter(adpt);
-                    branchSpn.setVisibility(View.INVISIBLE);
-                    chooseTheBranch.setVisibility(View.INVISIBLE);
-                }
-                else {
-
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-
         @SuppressLint("ResourceType")
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,branches);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         branchSpn.setAdapter(adapter);
+
+        gradeSpn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                MainActivity.grade = parent.getItemAtPosition(position).toString();
+                if(grade.equals("1") || grade.equals("2") || grade.equals("3") || grade.equals("4") || grade.equals("5") || grade.equals("6") || grade.equals("7") || grade.equals("8") || grade.equals("9") || grade.equals("10")){
+                    branchSpn.setVisibility(View.INVISIBLE);
+                    chooseTheBranch.setVisibility(View.INVISIBLE);
+                }
+
+                if(grade.equals("11") || grade.equals("12")){
+                    branchSpn.setVisibility(View.VISIBLE);
+                    chooseTheBranch.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         branchSpn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                text=adapterView.getItemAtPosition(i).toString();
-             // Toast.makeText(MainActivity.this,text,Toast.LENGTH_SHORT).show();
-                ArrayAdapter<String> adpt;
-                if(text.equals(branches[0])){
-                    adpt=new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_spinner_item,sciSubjects);
-                    subjectSpn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int j, long l) {
-                            courseName=adapterView.getItemAtPosition(j).toString();
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
-                }
-                else {
-                    adpt=new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_spinner_item,letSubjects);
-                    subjectSpn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int k, long l) {
-                            text=adapterView.getItemAtPosition(k).toString();
-                        }
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
-                }
-                adpt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                subjectSpn.setAdapter(adpt);
+                MainActivity.branch=adapterView.getItemAtPosition(i).toString();
             }
 
             @Override
@@ -236,20 +98,93 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
         addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View view) {
-                studentName=nameEditTxt.getText().toString();
-                studentID=IDeditTxt.getText().toString();
-                if(studentName.isEmpty() || studentID.isEmpty() || !studentID.matches("[0-9]+") ){
-                    Toast.makeText(MainActivity.this,"Fill in the fields with correct inputs !!",Toast.LENGTH_LONG).show();
+                if(nameEditTxt.getText().toString().isEmpty()){
+                    Toast.makeText(MainActivity.this,"Please fill in the fields above ... ",Toast.LENGTH_LONG).show();
                 }
                 else {
-                    Toast.makeText(MainActivity.this," A new course added ..",Toast.LENGTH_LONG).show();
-                    students.add(new Student(studentName,Integer.parseInt(studentID),Integer.parseInt(studentGrade),new Course(courseName,3)));
+                    String str=MainActivity.grade;
+                    String br=MainActivity.branch;
+                    Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+
+
+                    if(str.equals("1")){
+                        intent.putExtra("grade","1");
+                        intent.putExtra("StudentID",nameEditTxt.getText().toString());
+                        startActivity(intent);
+                    }
+                    else if(str.equals("2")){
+                        intent.putExtra("grade","2");
+                        intent.putExtra("StudentID",nameEditTxt.getText().toString());
+                        startActivity(intent);
+                    }
+                    else if(str.equals("3")){
+                        intent.putExtra("grade","3");
+                        intent.putExtra("StudentID",nameEditTxt.getText().toString());
+                        startActivity(intent);
+                    }
+                    else if( str.equals("4")){
+                        intent.putExtra("grade","4");
+                        intent.putExtra("StudentID",nameEditTxt.getText().toString());
+                        startActivity(intent);
+                    }
+                    else if(str.equals("5")){
+                        intent.putExtra("grade","5");
+                        intent.putExtra("StudentID",nameEditTxt.getText().toString());
+                        startActivity(intent);
+                    }
+                    else if(str.equals("6")){
+                        intent.putExtra("grade","6");
+                        intent.putExtra("StudentID",nameEditTxt.getText().toString());
+                        startActivity(intent);
+
+                    }
+                    else if(str.equals("7")){
+                        intent.putExtra("grade","7");
+                        intent.putExtra("StudentID",nameEditTxt.getText().toString());
+                        startActivity(intent);
+                    }
+                    else if(str.equals("8")){
+                        intent.putExtra("grade","8");
+                        intent.putExtra("StudentID",nameEditTxt.getText().toString());
+                        startActivity(intent);
+                    }
+                    else if(str.equals("9")){
+                        intent.putExtra("grade","9");
+                        intent.putExtra("StudentID",nameEditTxt.getText().toString());
+                        startActivity(intent);
+                    }
+                    else if( str.equals("10")){
+                        intent.putExtra("grade","10");
+                        intent.putExtra("StudentID",nameEditTxt.getText().toString());
+                        startActivity(intent);
+                    }
+                    else if(str.equals("11")){
+                        if(branch.equals("Scientific")){
+                            intent.putExtra("grade","11SCI");
+                        }
+                        else{
+                            intent.putExtra("grade","11LET");
+                        }
+                        intent.putExtra("StudentID",nameEditTxt.getText().toString());
+
+                        startActivity(intent);
+                    }
+                    else if(str.equals("12")){
+                        if(branch.equals("Scientific")){
+                            intent.putExtra("grade","12SCI");
+                        }
+                        else{
+                            intent.putExtra("grade","12LET");
+                        }
+                        intent.putExtra("StudentID",nameEditTxt.getText().toString());
+                        startActivity(intent);
+                    }
                 }
             }
         });
-
-
     }
 }
